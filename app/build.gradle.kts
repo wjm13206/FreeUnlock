@@ -58,6 +58,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    implementation(libs.material)
 
     compileOnly(libs.libxposed.api)
 }
