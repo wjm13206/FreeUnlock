@@ -8,5 +8,3 @@
 .cxx
 .idea
 /.kotlin
-xposed_init
-yukihookapi_init

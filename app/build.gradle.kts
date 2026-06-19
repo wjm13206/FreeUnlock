@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "xyz.thewhitedog9487.freeunlock"
-    compileSdk {
-        version = release(36) }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "xyz.thewhitedog9487.freeunlock"
@@ -38,7 +38,6 @@ android {
     packaging {
         resources {
             merges += "META-INF/xposed/*"
-            excludes += "**"
         }
     }
 

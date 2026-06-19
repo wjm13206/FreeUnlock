@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FreeUnlock"
+rootProject.name = "FreeUnlock-fork"
 include(":app")
