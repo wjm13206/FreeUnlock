@@ -1,4 +1,4 @@
-package xyz.thewhitedog9487.freeunlock.xposed
+package xyz.wjm13206.freeunlock.xposed
 
 import android.util.Log
 import io.github.libxposed.api.XposedModule

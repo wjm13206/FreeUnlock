@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace = "xyz.thewhitedog9487.freeunlock"
-    compileSdk = 36
+    namespace = "xyz.wjm13206.freeunlock"
+    compileSdk = 37
 
     defaultConfig {
-        applicationId = "xyz.thewhitedog9487.freeunlock"
+        applicationId = "xyz.wjm13206.freeunlock"
         minSdk = 30
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

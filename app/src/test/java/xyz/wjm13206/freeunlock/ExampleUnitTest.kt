@@ -1,4 +1,4 @@
-package xyz.thewhitedog9487.freeunlock
+package xyz.wjm13206.freeunlock
 
 import org.junit.Test
 

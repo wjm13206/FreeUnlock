@@ -1,4 +1,4 @@
-package xyz.thewhitedog9487.freeunlock
+package xyz.wjm13206.freeunlock
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("xyz.thewhitedog9487.freeunlock", appContext.packageName)
+        assertEquals("xyz.wjm13206.freeunlock", appContext.packageName)
     }
 }
