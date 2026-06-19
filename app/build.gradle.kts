@@ -1,10 +1,5 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     alias(libs.plugins.android.application)
-
-    alias(libs.plugins.ksp)
 }
 
 android {
@@ -40,6 +35,13 @@ android {
     buildFeatures {
         buildConfig = true }
 
+    packaging {
+        resources {
+            merges += "META-INF/xposed/*"
+            excludes += "**"
+        }
+    }
+
     signingConfigs {
         val KeystorePath = System.getProperty("Android_Keystore_Path")
         if( KeystorePath == null || file(KeystorePath).exists() == false ) {
@@ -58,25 +60,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-//    implementation(libs.androidx.appcompat)
-//    implementation(libs.material)
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
-//    implementation(libs.androidx.annotation)
 
-    // 基础依赖
-    implementation(libs.yukihookapi.api)
-    // 推荐使用 KavaRef 作为核心反射 API
-    implementation(libs.kavaref.core)
-    implementation(libs.kavaref.extension)
-    // 作为 Xposed 模块使用务必添加，其它情况可选
-    compileOnly(libs.xposed.api)
-    // 作为 Xposed 模块使用务必添加，其它情况可选
-    ksp(libs.yukihookapi.ksp.xposed)
+    compileOnly(libs.libxposed.api)
 }
-
-tasks.withType<KotlinCompile> {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_17 } }
 

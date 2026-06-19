@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 拉取代码
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 安装JDK
         uses: actions/setup-java@v5
@@ -33,13 +33,13 @@ jobs:
           cat app/src/main/AndroidManifest.xml
 
       - name: 上传构建产物
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: 所有构建产物
           path: app/build/outputs/
 
       - name: 上传安装包
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: 安装包
           path: |
