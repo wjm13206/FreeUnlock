@@ -16,14 +16,28 @@ jobs:
           distribution: 'temurin'
           java-version: '25'
 
-      - name: 使gradlew可执行
-        run: chmod +x ./gradlew
+      - name: 解码签名密钥库
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > ${{ runner.temp }}/keystore.jks
+          fi
 
-      - name: 构建APK
-        run: ./gradlew assembleDebug assembleRelease
-
-      - name: 构建AAB
-        run: ./gradlew bundleDebug bundleRelease
+      - name: 构建
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+          KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
+          KEY_ALIAS_PASS: ${{ secrets.ANDROID_KEYSTORE_ALIAS_PASSWORD }}
+        run: |
+          chmod +x ./gradlew
+          SIGN_ARGS=""
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            SIGN_ARGS="-DAndroid_Keystore_Path=${{ runner.temp }}/keystore.jks -DAndroid_Keystore_Password=$KEYSTORE_PASS -DAndroid_Keystore_Alias=$KEYSTORE_ALIAS -DAndroid_Keystore_Alias_Password=$KEY_ALIAS_PASS"
+          fi
+          ./gradlew assembleDebug assembleRelease $SIGN_ARGS
+          ./gradlew bundleDebug bundleRelease $SIGN_ARGS
 
       - name: 输出信息
         run: |
@@ -44,6 +58,6 @@ jobs:
           name: 安装包
           path: |
             app/build/outputs/apk/debug/app-debug.apk
-            app/build/outputs/apk/release/app-release-unsigned.apk
+            app/build/outputs/apk/release/app-release*.apk
             app/build/outputs/bundle/debug/app-debug.aab
             app/build/outputs/bundle/release/app-release.aab
