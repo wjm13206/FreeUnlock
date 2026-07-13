@@ -15,6 +15,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        val KeystorePath = System.getProperty("Android_Keystore_Path")
+        if( KeystorePath == null || file(KeystorePath).exists() == false ) {
+            return@signingConfigs }
+
+        create("release"){
+            storeFile = file(KeystorePath)
+            storePassword = System.getProperty("Android_Keystore_Password")
+            keyAlias = System.getProperty("Android_Keystore_Alias")
+            keyPassword = System.getProperty("Android_Keystore_Alias_Password")
+
+            if ( arrayOf<Any?>( storePassword, keyAlias, keyPassword ).all { it != null } == false ) {
+                throw RuntimeException("签名配置错误，缺少必要的环境变量。") } }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -39,21 +54,6 @@ android {
         resources {
             merges += "META-INF/xposed/*"
         }
-    }
-
-    signingConfigs {
-        val KeystorePath = System.getProperty("Android_Keystore_Path")
-        if( KeystorePath == null || file(KeystorePath).exists() == false ) {
-            return@signingConfigs }
-
-        create("release"){
-            storeFile = file(KeystorePath)
-            storePassword = System.getProperty("Android_Keystore_Password")
-            keyAlias = System.getProperty("Android_Keystore_Alias")
-            keyPassword = System.getProperty("Android_Keystore_Alias_Password")
-
-            if ( arrayOf<Any?>( storePassword, keyAlias, keyPassword ).all { it != null } == false ) {
-                throw RuntimeException("签名配置错误，缺少必要的环境变量。") } }
     }
 }
 

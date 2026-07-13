@@ -1,4 +1,4 @@
-name: 构建
+name: Build
 on:
   workflow_dispatch:
   push:
@@ -7,16 +7,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 拉取代码
+      - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: 安装JDK
+      - name: Setup JDK
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '25'
 
-      - name: 解码签名密钥库
+      - name: Decode keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_FILE }}
         run: |
@@ -24,7 +24,7 @@ jobs:
             echo "$KEYSTORE_BASE64" | base64 -d > ${{ runner.temp }}/keystore.jks
           fi
 
-      - name: 构建
+      - name: Build
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_FILE }}
           KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -39,23 +39,23 @@ jobs:
           ./gradlew assembleDebug assembleRelease $SIGN_ARGS
           ./gradlew bundleDebug bundleRelease $SIGN_ARGS
 
-      - name: 输出信息
+      - name: Output info
         run: |
           sudo apt update
           sudo apt install tree -y
           tree .
           cat app/src/main/AndroidManifest.xml
 
-      - name: 上传构建产物
+      - name: Upload all artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: 所有构建产物
+          name: All build outputs
           path: app/build/outputs/
 
-      - name: 上传安装包
+      - name: Upload APK bundle
         uses: actions/upload-artifact@v7
         with:
-          name: 安装包
+          name: APK bundle
           path: |
             app/build/outputs/apk/debug/app-debug.apk
             app/build/outputs/apk/release/app-release*.apk
