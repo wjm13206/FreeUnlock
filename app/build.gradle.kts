@@ -12,7 +12,6 @@ android {
         targetSdk = 37
         versionCode = 3
         versionName = "1.2"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -59,7 +58,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
 
     compileOnly(libs.libxposed.api)
 }

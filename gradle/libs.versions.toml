@@ -2,12 +2,10 @@
 agp = "9.2.1"
 kotlin = "2.4.0"
 coreKtx = "1.19.0"
-material = "1.14.0"
 libxposed = "102.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 libxposed-api = { module = "io.github.libxposed:api", version.ref = "libxposed" }
 
 [plugins]

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">FreeUnlock</string>
-    <string name="app_description">Disable the restriction that you must unlock the screen with a password every 72 hours</string>
-</resources>
